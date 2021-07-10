@@ -11,3 +11,5 @@
 - #03 Postgres setup with os-env
 
 - #04 Seperate Database file
+
+- #05 Select all ToDo

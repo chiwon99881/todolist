@@ -2,17 +2,11 @@ package main
 
 import (
 	"github.com/chiwon99881/todolist/db"
+	"github.com/chiwon99881/todolist/todolist"
 	_ "github.com/lib/pq"
 )
 
-// ToDo Type
-type ToDo struct {
-	ID      int
-	Caption string
-	Excute  bool
-}
-
 func main() {
-	db.InsertToDoDB("Make To Do List Project", false)
+	todolist.LoadAllToDo()
 	defer db.Close()
 }
