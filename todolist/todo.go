@@ -1,17 +1,14 @@
 package todolist
 
 import (
-	"fmt"
-
 	"github.com/chiwon99881/todolist/db"
+	"github.com/chiwon99881/todolist/types"
 )
 
 // LoadAllToDo is get all todo
-func LoadAllToDo() {
+func LoadAllToDo() []*types.ToDo {
 	toDos := db.SelectAllToDo()
-	for _, toDo := range toDos {
-		fmt.Println(*toDo)
-	}
+	return toDos
 }
 
 // AddToDo is create new to do

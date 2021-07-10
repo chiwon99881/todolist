@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/chiwon99881/todolist/todolist"
+	"github.com/chiwon99881/todolist/types"
 	"github.com/gorilla/mux"
 )
 
@@ -13,7 +15,9 @@ var templates *template.Template
 var templateDir = "templates/"
 
 func home(rw http.ResponseWriter, r *http.Request) {
-	err := templates.Execute(rw, "HI! MY HOME")
+	toDos := todolist.LoadAllToDo()
+
+	err := templates.Execute(rw, types.LoadAllToDoData{ToDos: toDos})
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}

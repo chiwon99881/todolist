@@ -6,3 +6,8 @@ type ToDo struct {
 	Caption string
 	Excute  bool
 }
+
+// LoadAllToDoData for template data
+type LoadAllToDoData struct {
+	ToDos []*ToDo
+}
