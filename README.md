@@ -17,3 +17,7 @@
 - #06 Update To Do
 
 - #07 Delete To Do
+
+- #08 Web Part 1
+
+  > go get -u github.com/gorilla/mux

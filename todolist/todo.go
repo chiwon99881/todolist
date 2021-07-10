@@ -27,5 +27,5 @@ func DoneToDo(ID int) {
 
 // RemoveToDo is delete to do in todolist
 func RemoveToDo(ID int) {
-
+	db.DeleteToDo(ID)
 }

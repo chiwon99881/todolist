@@ -5,13 +5,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/chiwon99881/todolist/env"
 	"github.com/chiwon99881/todolist/types"
 )
 
 // DB is connection func for database
 func DB() *sql.DB {
-	env.Start()
 	pqConn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		os.Getenv("DBHOST"), os.Getenv("DBPORT"), os.Getenv("DBUSER"), os.Getenv("DBPASSWORD"), os.Getenv("DBNAME"))
 
