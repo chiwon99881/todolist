@@ -15,3 +15,5 @@
 - #05 Select all ToDo
 
 - #06 Update To Do
+
+- #07 Delete To Do

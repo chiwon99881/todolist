@@ -14,8 +14,18 @@ func LoadAllToDo() {
 	}
 }
 
+// AddToDo is create new to do
+func AddToDo(caption string) {
+	db.InsertToDo(caption, false)
+}
+
 // DoneToDo is my a to do is done
 func DoneToDo(ID int) {
 	toDo := db.SelectToDo(ID)
 	db.UpdateToDo(toDo.ID, toDo.Excute)
+}
+
+// RemoveToDo is delete to do in todolist
+func RemoveToDo(ID int) {
+
 }

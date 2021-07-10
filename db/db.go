@@ -66,10 +66,19 @@ func InsertToDo(caption string, check bool) {
 }
 
 // UpdateToDo is true -> false or false -> true your ToDo
-func UpdateToDo(toDoID int, check bool) {
+func UpdateToDo(ID int, check bool) {
 	toggleExcute := !check
 	stmt := `update "todo" set "excute"=$2 where "id"=$1`
-	_, err := DB().Exec(stmt, toDoID, toggleExcute)
+	_, err := DB().Exec(stmt, ID, toggleExcute)
+	if err != nil {
+		panic(err.Error())
+	}
+}
+
+// DeleteToDo is delete to do in database
+func DeleteToDo(ID int) {
+	stmt := `delete from "todo" where id=$1`
+	_, err := DB().Exec(stmt, ID)
 	if err != nil {
 		panic(err.Error())
 	}
