@@ -13,3 +13,5 @@
 - #04 Seperate Database file
 
 - #05 Select all ToDo
+
+- #06 Update To Do

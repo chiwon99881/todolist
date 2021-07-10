@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	todolist.LoadAllToDo()
+	todolist.DoneToDo(1)
 	defer db.Close()
 }
