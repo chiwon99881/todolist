@@ -1,23 +1,18 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"os"
-
-	"github.com/chiwon99881/todolist/env"
+	"github.com/chiwon99881/todolist/db"
 	_ "github.com/lib/pq"
 )
 
+// ToDo Type
+type ToDo struct {
+	ID      int
+	Caption string
+	Excute  bool
+}
+
 func main() {
-	env.Start()
-	dbSource := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		os.Getenv("DBHOST"), os.Getenv("DBPORT"), os.Getenv("DBUSER"), os.Getenv("DBPASSWORD"), os.Getenv("DBNAME"))
-
-	db, err := sql.Open("postgres", dbSource)
+	db.InsertToDoDB("Make To Do List Project", false)
 	defer db.Close()
-
-	if err != nil || db.Ping() != nil {
-		panic(err.Error())
-	}
 }
