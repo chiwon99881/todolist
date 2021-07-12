@@ -12,7 +12,7 @@ import (
 )
 
 var templates *template.Template
-var templateDir = "templates/"
+var templateDir = "web/templates/"
 
 func home(rw http.ResponseWriter, r *http.Request) {
 	toDos := todolist.LoadAllToDo()
