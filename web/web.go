@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/chiwon99881/todolist/todolist"
@@ -33,7 +34,13 @@ func home(rw http.ResponseWriter, r *http.Request) {
 		}
 		id := fmt.Sprintf("%s", res)
 		getID := strings.Split(id, "=")
-		fmt.Printf("\nID:%s\n", getID[1])
+		toDoID, err := strconv.Atoi(getID[1])
+		if err != nil {
+			panic(err.Error())
+		}
+		todolist.DoneToDo(toDoID)
+		http.Redirect(rw, r, "/", http.StatusFound)
+		break
 	default:
 		break
 	}
