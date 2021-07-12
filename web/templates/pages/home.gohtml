@@ -27,10 +27,12 @@
               <span class="todo-id">{{.ID}}.</span>
               <span class="todo-caption">{{.Caption}}</span>
             </div>
-            <form method="POST" action="/action" class="todo-check">
+            <form method="POST" class="todo-check">
               {{if .Excute}}
+                <input type="hidden" name="id" value="{{.ID}}" />
                 <button class="todo-excuted" />
               {{else}}
+                <input type="hidden" name="id" value="{{.ID}}" />
                 <button class="todo-nonexcuted" />
               {{end}}
             </form>  
