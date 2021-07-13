@@ -31,3 +31,5 @@
 - #12 To Do Done and Redirect
 
 - #13 Divide templates and add column index
+
+- #14 Refactoring and Delete to do

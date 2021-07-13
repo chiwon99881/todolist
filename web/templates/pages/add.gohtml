@@ -1,4 +1,4 @@
-{{define "home"}}
+{{define "add-todo"}}
 <!DOCTYPE html>
 <html lang="en">
   {{template "head" "Chyonee ToDoList"}}
@@ -6,7 +6,10 @@
   <div class="container">
     {{template "header"}}
     <div class="main">
-      {{template "todolist" .ToDos}}
+      <form method="POST" class="add-form">
+        <input type="text" placeholder="Add your to do" name="newToDo" />
+        <button type="submit">Add</button>
+      </form>
     </div>
   </div>
   {{template "footer"}}
@@ -32,6 +35,36 @@
     align-items: center;
     justify-content: center;
     border: 1px solid #DDDDDD;
+  }
+  .add-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+    height: 60%;
+  }
+
+  input {
+    -webkit-appearance: none;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: 20px;
+    border: none;
+    border-bottom: 1px solid #DDDDDD;
+  }
+  input:focus {
+    outline:none;
+    border-bottom: 2px solid #DDDDDD;
+  }
+  button {
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #DDDDDD;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #96BAFF;
+    color: white;
+    font-size: 15px;
   }
 
 </style>

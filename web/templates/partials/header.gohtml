@@ -1,14 +1,14 @@
 {{define "header"}}
 <header>
-      <div>
-        <span>To Do List</span>
-      </div>
-      <div>
-        <span class="title">치원이의 Golang ToDoList</span>
-      </div>
-      <div>
-        <a href="/add">Add To Do</a>
-      </div>
+  <div>
+    <span>To Do List</span>
+  </div>
+  <div>
+    <span class="title">치원이의 Golang ToDoList</span>
+  </div>
+  <div>
+    <a href="/todo/add">Add To Do</a>
+  </div>
 </header>
 
 <style>
@@ -25,7 +25,14 @@
   }
   a {
     text-decoration: none;
+    color: #E98580;
   }  
+  a:visited {
+    color: #E98580;
+  }
+  a:hover {
+    color: #DF5E5E;
+  }
   .title {
     font-weight: 600;
     font-size: 30px;

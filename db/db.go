@@ -30,7 +30,7 @@ func Close() {
 // SelectAllToDo is excute select SQL
 func SelectAllToDo() []*types.ToDo {
 	var toDos []*types.ToDo
-	stmt := `select * from "todo"`
+	stmt := `select * from "todo" order by id asc`
 	rows, err := DB().Query(stmt)
 	if err != nil {
 		panic(err.Error())
@@ -38,7 +38,7 @@ func SelectAllToDo() []*types.ToDo {
 	defer rows.Close()
 	for rows.Next() {
 		toDo := &types.ToDo{}
-		rows.Scan(&toDo.ID, &toDo.Caption, &toDo.Excute)
+		rows.Scan(&toDo.ID, &toDo.Caption, &toDo.Excute, &toDo.Index)
 		toDos = append(toDos, toDo)
 	}
 	return toDos
@@ -50,7 +50,7 @@ func SelectToDo(ID int) *types.ToDo {
 	stmt := `select * from "todo" where "id"=$1`
 	row := DB().QueryRow(stmt, ID)
 
-	row.Scan(&toDo.ID, &toDo.Caption, &toDo.Excute)
+	row.Scan(&toDo.ID, &toDo.Caption, &toDo.Excute, &toDo.Index)
 	return toDo
 }
 
