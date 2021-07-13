@@ -10,6 +10,5 @@ import (
 func main() {
 	defer db.Close()
 	env.Start()
-
 	web.Start()
 }

@@ -56,8 +56,10 @@ func SelectToDo(ID int) *types.ToDo {
 
 // InsertToDo is excute insert SQL
 func InsertToDo(caption string, check bool) {
-	stmt := `insert into "todo"("caption", "excute") values($1, $2)`
-	_, err := DB().Exec(stmt, caption, check)
+	toDos := SelectAllToDo()
+	index := len(toDos)
+	stmt := `insert into "todo"("caption", "excute", "index") values($1, $2, $3)`
+	_, err := DB().Exec(stmt, caption, check, index+1)
 	if err != nil {
 		panic(err.Error())
 	}

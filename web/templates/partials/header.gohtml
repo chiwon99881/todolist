@@ -1,0 +1,34 @@
+{{define "header"}}
+<header>
+      <div>
+        <span>To Do List</span>
+      </div>
+      <div>
+        <span class="title">치원이의 Golang ToDoList</span>
+      </div>
+      <div>
+        <a href="/add">Add To Do</a>
+      </div>
+</header>
+
+<style>
+  header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width:100%;
+      height: 70px;
+      border-bottom: 1px solid #DDDDDD;
+      max-height: 50px;
+      background-color: white;
+  }
+  a {
+    text-decoration: none;
+  }  
+  .title {
+    font-weight: 600;
+    font-size: 30px;
+  }
+</style>
+{{end}}

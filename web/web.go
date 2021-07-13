@@ -22,7 +22,7 @@ func home(rw http.ResponseWriter, r *http.Request) {
 	case "GET":
 		toDos := todolist.LoadAllToDo()
 
-		err := templates.Execute(rw, types.LoadAllToDoData{ToDos: toDos})
+		err := templates.ExecuteTemplate(rw, "home", types.LoadAllToDoData{ToDos: toDos})
 		if err != nil {
 			http.Error(rw, err.Error(), http.StatusBadRequest)
 		}
@@ -46,12 +46,18 @@ func home(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func addToDo(rw http.ResponseWriter, r *http.Request) {
+
+}
+
 // Start is function of web server
 func Start() {
 	fmt.Printf("Web server running on http://localhost:%s", os.Getenv("WEBPORT"))
 	templates = template.Must(template.ParseGlob(templateDir + "pages/*.gohtml"))
+	templates = template.Must(templates.ParseGlob(templateDir + "partials/*.gohtml"))
 	router := mux.NewRouter()
 	router.HandleFunc("/", home).Methods("GET", "POST")
+	router.HandleFunc("/add-todo", addToDo).Methods("GET", "POST")
 
 	err := http.ListenAndServe(os.Getenv("WEBPORT"), router)
 	if err != nil {

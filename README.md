@@ -29,3 +29,5 @@
 - #11 get ID from post request
 
 - #12 To Do Done and Redirect
+
+- #13 Divide templates and add column index

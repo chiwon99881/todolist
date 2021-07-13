@@ -1,0 +1,68 @@
+{{define "todolist"}}
+<div class="todo-container">
+    {{range .}}
+        <div class="todo-card">
+        <div class="todo-info">
+            <span class="todo-index">{{.Index}}.</span>
+            <span class="todo-caption">{{.Caption}}</span>
+        </div>
+        <form method="POST" class="todo-check">
+            {{if .Excute}}
+            <input type="hidden" name="id" value="{{.ID}}" />
+            <button class="todo-excuted" />
+            {{else}}
+            <input type="hidden" name="id" value="{{.ID}}" />
+            <button class="todo-nonexcuted" />
+            {{end}}
+        </form>  
+        </div>
+    {{end}}
+</div>
+
+<style>
+    .todo-container {
+    box-sizing: border-box;
+    width:80%;
+    height:100%;
+    display: flex;
+    padding-top: 40px;
+    justify-content: center;
+  }
+  .todo-card {
+    width:30%;
+    height:50px;
+    display:flex;
+    align-items:center;
+  }
+  .todo-info {
+    width:80%;
+    display:flex;
+    flex-wrap: wrap;
+    border-bottom: 0.5px solid #DDDDDD;
+  }
+  .todo-index {
+    font-size: 20px;
+  }
+  .todo-caption {
+    font-size: 20px;
+  }
+  .todo-check {
+    width:20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .todo-excuted {
+    padding: 10px;
+    background-color: red;
+    border: 0.5px solid #DDDDDD;
+    cursor: pointer;
+  }
+  .todo-nonexcuted {
+    padding: 10px;
+    background-color: white;
+    border: 0.5px solid #DDDDDD;
+    cursor: pointer;
+  }
+</style>
+{{end}}
