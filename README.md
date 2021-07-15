@@ -37,3 +37,5 @@
 - #15 REST API Part 1
 
 - #16 REST API Part 2
+
+- #17 Index Reorder

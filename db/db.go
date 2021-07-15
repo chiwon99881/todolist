@@ -82,4 +82,12 @@ func DeleteToDo(ID int) {
 	if err != nil {
 		panic(err.Error())
 	}
+	toDos := SelectAllToDo()
+	for i := 0; i < len(toDos); i++ {
+		stmt := `update "todo" set "index"=$1 where "id"=$2`
+		_, err := DB().Exec(stmt, i+1, toDos[i].ID)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
 }
