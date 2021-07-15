@@ -3,23 +3,26 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"os"
 
+	"github.com/chiwon99881/todolist/todolist"
 	"github.com/gorilla/mux"
-)
-
-const (
-	port string = ":3000"
 )
 
 type errResponse struct {
 	ErrorMessage string `json:"errorMessage"`
 }
 
+type responseData struct {
+	Caption string `json:"caption"`
+}
+
 type url string
 
 func (u url) MarshalText() ([]byte, error) {
-	urlString := fmt.Sprintf("http://localhost%s%s", port, u)
+	urlString := fmt.Sprintf("http://localhost%s%s", os.Getenv("RESTPORT"), u)
 	return []byte(urlString), nil
 }
 
@@ -53,12 +56,29 @@ func home(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func addToDo(rw http.ResponseWriter, r *http.Request) {
+	responseData := &responseData{}
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprintf(rw, "%s", errResponse{ErrorMessage: "error..."})
+		panic(err.Error())
+	}
+	err = json.Unmarshal(body, responseData)
+	if err != nil {
+		fmt.Fprintf(rw, "%s", errResponse{ErrorMessage: "error..."})
+		panic(err.Error())
+	}
+	todolist.AddToDo(responseData.Caption)
+	rw.WriteHeader(http.StatusCreated)
+}
+
 // Start is trigger for rest api gateway
 func Start() {
-	fmt.Printf("Server Listening on http://localhost%s\n", port)
+	fmt.Printf("Server Listening on http://localhost%s\n", os.Getenv("RESTPORT"))
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", home)
-	err := http.ListenAndServe(port, router)
+	router.HandleFunc("/todo/add", addToDo)
+	err := http.ListenAndServe(os.Getenv("RESTPORT"), router)
 	if err != nil {
 		panic(err.Error())
 	}
