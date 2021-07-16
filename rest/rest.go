@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/chiwon99881/todolist/db"
 	"github.com/chiwon99881/todolist/todolist"
 	"github.com/chiwon99881/todolist/utils"
 	"github.com/gorilla/mux"
@@ -83,13 +84,48 @@ func updateToDo(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(http.StatusOK)
 }
 
+func deleteToDo(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	convInt, err := strconv.Atoi(id)
+	utils.HandleError(err)
+	todolist.RemoveToDo(convInt)
+	rw.WriteHeader(http.StatusOK)
+}
+
+func getToDo(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	convInt, err := strconv.Atoi(id)
+	utils.HandleError(err)
+
+	toDo := db.SelectToDo(convInt)
+	marshal, err := json.Marshal(toDo)
+	utils.HandleError(err)
+
+	rw.WriteHeader(http.StatusOK)
+	fmt.Fprintf(rw, "%s", marshal)
+}
+
+func allToDo(rw http.ResponseWriter, r *http.Request) {
+	toDos := todolist.LoadAllToDo()
+	marshal, err := json.Marshal(toDos)
+	utils.HandleError(err)
+
+	rw.WriteHeader(http.StatusOK)
+	fmt.Fprintf(rw, "%s", marshal)
+}
+
 // Start is trigger for rest api gateway
 func Start() {
 	fmt.Printf("Server Listening on http://localhost%s\n", os.Getenv("RESTPORT"))
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", home)
-	router.HandleFunc("/todo/add", addToDo)
-	router.HandleFunc("/update/todo/{id}", updateToDo)
+	router.HandleFunc("/", home).Methods("GET")
+	router.HandleFunc("/todo/add", addToDo).Methods("GET", "POST")
+	router.HandleFunc("/todo/{id:[0-9]+}", getToDo).Methods("GET")
+	router.HandleFunc("/todos", allToDo).Methods("GET")
+	router.HandleFunc("/update/todo/{id:[0-9]+}", updateToDo).Methods("GET")
+	router.HandleFunc("/delete/todo/{id:[0-9]+}", deleteToDo).Methods("GET")
 	err := http.ListenAndServe(os.Getenv("RESTPORT"), router)
 	if err != nil {
 		panic(err.Error())

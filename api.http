@@ -1,2 +1,11 @@
 ###
 http://localhost:3000/update/todo/10
+
+###
+http://localhost:3000/delete/todo/11
+
+###
+http://localhost:3000/todo/7
+
+###
+http://localhost:3000/todos
