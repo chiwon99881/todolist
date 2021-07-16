@@ -6,8 +6,10 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/chiwon99881/todolist/todolist"
+	"github.com/chiwon99881/todolist/utils"
 	"github.com/gorilla/mux"
 )
 
@@ -72,12 +74,22 @@ func addToDo(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(http.StatusCreated)
 }
 
+func updateToDo(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	convInt, err := strconv.Atoi(id)
+	utils.HandleError(err)
+	todolist.DoneToDo(convInt)
+	rw.WriteHeader(http.StatusOK)
+}
+
 // Start is trigger for rest api gateway
 func Start() {
 	fmt.Printf("Server Listening on http://localhost%s\n", os.Getenv("RESTPORT"))
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", home)
 	router.HandleFunc("/todo/add", addToDo)
+	router.HandleFunc("/update/todo/{id}", updateToDo)
 	err := http.ListenAndServe(os.Getenv("RESTPORT"), router)
 	if err != nil {
 		panic(err.Error())

@@ -86,7 +86,7 @@ func deleteToDo(rw http.ResponseWriter, r *http.Request) {
 
 // Start is function of web server
 func Start() {
-	fmt.Printf("Web server running on http://localhost:%s", os.Getenv("WEBPORT"))
+	fmt.Printf("Web server running on http://localhost:%s\n", os.Getenv("WEBPORT"))
 	templates = template.Must(template.ParseGlob(templateDir + "pages/*.gohtml"))
 	templates = template.Must(templates.ParseGlob(templateDir + "partials/*.gohtml"))
 	router := mux.NewRouter()
